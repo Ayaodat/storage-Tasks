@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            background-color: #A0BFE0;
+        }
+
+        .card {
+            width: 300px;
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+  
+
+    <form id="projectInfoForm" style=" padding: 8%;  border-radius: 20px; padding-left: 9%; border: solid 2px; ">
+        <h2>Project Information Form</h2>
+        <br>
+        <label for="subject"> Subject:</label>
+        <input type="text" id="subject" required style=" width: 90%; border:  solid 2px; ">
+
+        <label for="description"> Description:</label>
+        <textarea id="description" rows="4" required style=" width: 90%; border:  solid 2px; "></textarea>
+
+        <label for="userTypes"> User Types:</label>
+        <input type="text" id="userTypes" required style=" width: 90%; border:  solid 2px; ">
+
+        <label for="technologyUsed">Technology Used:</label>
+        <input type="text" id="technologyUsed" required style=" width: 90%; border:  solid 2px; ">
+
+        <button type="button" onclick="submitForm()" style=" width: 90%; border:  solid 2px; margin-top: 10%;">Submit</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            var subject = document.getElementById("subject").value;
+            var description = document.getElementById("description").value;
+            var userTypes = document.getElementById("userTypes").value;
+            var technologyUsed = document.getElementById("technologyUsed").value;
+
+       
+            var projectData = {
+                "Subject": subject,
+                "Description": description,
+                "User Types": userTypes,
+                "Technology Used": technologyUsed
+            };
+
+       
+            sessionStorage.setItem("projectData", JSON.stringify(projectData));
+
+            renderData(projectData);
+        }
+
+        function renderData(projectData) {
+      
+            var card = document.createElement("div");
+            card.className = "card";
+
+         
+            var cardContent = "<h3>" + projectData.Subject + "</h3>";
+            cardContent += "<p><strong>Description:</strong> " + projectData.Description + "</p>";
+            cardContent += "<p><strong>User Types:</strong> " + projectData["User Types"] + "</p>";
+            cardContent += "<p><strong>Technology Used:</strong> " + projectData["Technology Used"] + "</p>";
+
+         
+            card.innerHTML = cardContent;
+
+         
+            document.body.appendChild(card);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+         
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            background-color: #A0BFE0;
+        }
+
+        .card {
+            width: 300px;
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-top: 12%;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h2 style="margin-left: 14%; width: 100% fit-content; ">Personal Data Form</h2>
+
+    <form id="personalDataForm" style="background-color: white; padding: 18%; width: 100%; border-radius: 20px; padding-left: 11%; border: solid 2px;">
+        <label for="name"> &#9679; Name:</label>
+        <input type="text" id="name" required style=" width: 90%; border:  solid 2px; "><br>
+
+        <label for="age">&#9679; Age:</label>
+        <input type="number" id="age" required style=" width: 90%; border:  solid 2px; "><br>
+
+        <label>&#9679; Gender:</label>
+        <input type="radio" id="female" name="gender" value="female" required  >
+        <label for="female">Female</label>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Male</label>
+
+        <label for="description">&#9679;Brief Description:</label>
+        <textarea id="description" rows="4" required style=" width: 90%; border:  solid 2px; "></textarea>
+
+        <label for="major">&#9679; Major and University:</label>
+        <input type="text" id="major" required style=" width: 90%; border:  solid 2px; ">
+
+        <label>&#9679; Programming Languages :</label><br>
+        <input type="checkbox" id="language1" value="Java">
+        <label for="language1">Java</label>
+
+        <input type="checkbox" id="language2" value="C++">
+        <label for="language2">C++</label>
+
+        <input type="checkbox" id="language3" value="JavaScript">
+        <label for="language3">JavaScript</label>
+
+        
+
+        <button type="button" style=" width: 90%; border:  solid 2px; margin-top: 16%; "  onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            var name = document.getElementById("name").value;
+            var age = document.getElementById("age").value;
+            var gender = document.querySelector('input[name="gender"]:checked').value;
+            var description = document.getElementById("description").value;
+            var major = document.getElementById("major").value;
+            var selectedLanguages = [];
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            checkboxes.forEach(function(checkbox) {
+                selectedLanguages.push(checkbox.value);
+            });
+
+           
+            var formData = {
+                "Name": name,
+                "Age": age,
+                "Gender": gender,
+                "Description": description,
+                "Major": major,
+                "Programming Languages": selectedLanguages
+            };
+
+          
+            localStorage.setItem("userData", JSON.stringify(formData));
+
+         
+            renderData(formData);
+        }
+
+        function renderData(formData) {
+         
+            var card = document.createElement("div");
+            card.className = "card";
+
+        
+            var cardContent = "<h3>" + formData.Name + "</h3>";
+            cardContent += "<p><strong>Age:</strong> " + formData.Age + "</p>";
+            cardContent += "<p><strong>Gender:</strong> " + formData.Gender + "</p>";
+            cardContent += "<p><strong>Description:</strong> " + formData.Description + "</p>";
+            cardContent += "<p><strong>Major:</strong> " + formData.Major + "</p>";
+            cardContent += "<p><strong>Programming Languages:</strong> " + formData["Programming Languages"].join(", ") + "</p>";
+
+           
+            card.innerHTML = cardContent;
+
+           
+            document.body.appendChild(card);
+        }
+    </script>
+</div>
+</body>
+</html>
